@@ -69,7 +69,7 @@ router.post('/info', function(req, res, next){
 
 async function almacena(dato){
   await client.connect();
-  const db = client.db.apply(dbName).collection("respuesta");
+  const db = client.db(dbName).collection("respuesta");
   await db.insertOne(dato);
 }
 
