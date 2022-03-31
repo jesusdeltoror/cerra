@@ -31,7 +31,7 @@ router.post('/info', function(req, res, next){
     installments: Number(req.body.installments),
     payment_method_id: req.body.paymentMethodId,
     issuer_id: req.body.issuer,
-    notification_url: "https://cerrapp.herokuapp.com/info",
+    notification_url: "http://requestbin.fullcontact.com/1ogudgk1",
     payer: {
       email: req.body.email,
       identification: {
