@@ -11,10 +11,17 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/process_payment', function(req, res, next) {
+
   mercadopago.payment.save(req.body)
   .then(function(response) {
     const { status, status_detail, id } = response.body;
     console.log(response.body);
+    almacena(response.body)
+        .then()
+        .catch()
+        .finally(()=>{
+          client.close()
+        })
     res.status(response.status).json({ status, status_detail, id });
   })
   .catch(function(error) {
@@ -42,7 +49,12 @@ router.post('/info', function(req, res, next){
   
   mercadopago.payment.save(payment_data)
     .then(function(response) {
-      almacena(response)
+      almacena(response.body)
+        .then()
+        .catch()
+        .finally(()=>{
+          client.close()
+        })
       res.status(response.status).json({
         status: response.body.status,
         status_detail: response.body.status_detail,
