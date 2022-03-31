@@ -23,7 +23,7 @@ router.post('/process_payment', function(req, res, next) {
 });
 
 
-router.post('info', function(req, res, next){
+router.post('/info', function(req, res, next){
   var payment_data = {
     transaction_amount: Number(req.body.transactionAmount),
     token: req.body.token,
@@ -31,7 +31,7 @@ router.post('info', function(req, res, next){
     installments: Number(req.body.installments),
     payment_method_id: req.body.paymentMethodId,
     issuer_id: req.body.issuer,
-    notification_url: "http://requestbin.fullcontact.com/1ogudgk1",
+    notification_url: "https://cerrapp.herokuapp.com/info",
     payer: {
       email: req.body.email,
       identification: {
