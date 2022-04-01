@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var {client, dbName} = require('../db/mongo');
@@ -11,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/process_payment', function(req, res, next) {
-
+  req.body.notification_url = "https://cerrapp.herokuapp.com/webhooks";
   mercadopago.payment.save(req.body)
   .then(function(response) {
     const { status, status_detail, id } = response.body;
