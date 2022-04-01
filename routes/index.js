@@ -61,7 +61,7 @@ router.post('/webhooks', function(req, res, next){
         status: response.body.status,
         status_detail: response.body.status_detail,
         id: response.body.id
-      });
+      }).redirect('/');
     })
     .catch(function(error) {
       res.status(400).send(error);
