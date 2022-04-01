@@ -63,7 +63,7 @@ router.post('/webhooks', function(req, res, next){
       });
     })
     .catch(function(error) {
-      res.status(response.status).send(error);
+      res.status(400).send(error);
     });
 });
 
