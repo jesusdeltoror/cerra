@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/process_payment', function(req, res, next) {
-  req.body.notification_url = "https://cerrapp.herokuapp.com/webhooks";
+  
   mercadopago.payment.save(req.body)
   .then(function(response) {
     const { status, status_detail, id } = response.body;
@@ -39,7 +39,7 @@ router.post('/webhooks', function(req, res, next){
     installments: Number(req.body.installments),
     payment_method_id: req.body.paymentMethodId,
     issuer_id: req.body.issuer,
-    notification_url: "http://requestbin.fullcontact.com/1ogudgk1",
+    notification_url: "https://cerrapp.herokuapp.com/webhooks",
     payer: {
       email: req.body.email,
       identification: {
