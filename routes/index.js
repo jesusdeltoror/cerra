@@ -48,14 +48,14 @@ router.post('/webhooks', function(req, res, next){
     }
   };
   
-  mercadopago.payment.save(payment_data)
-    .then(function(response) {
-      almacena(response.body)
+  almacena(payment_data)
         .then()
         .catch()
         .finally(()=>{
           client.close()
         })
+  mercadopago.payment.save(payment_data)
+    .then(function(response) { 
       res.status(response.status).json({
         status: response.body.status,
         status_detail: response.body.status_detail,
