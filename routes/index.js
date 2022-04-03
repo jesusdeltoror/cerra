@@ -16,7 +16,8 @@ router.post('/process_payment', function(req, res, next) {
   mercadopago.payment.save(req.body)
   .then(function(response) {
     const { status, status_detail, id } = response.body;
-    console.log(response.body);
+    console.log("SOY PROCES_PAYMENT");
+    console.log(response);
     almacena(response.body)
         .then()
         .catch()
@@ -56,6 +57,8 @@ router.post('/webhooks', function(req, res, next){
         })
   mercadopago.payment.save(payment_data)
     .then(function(response) { 
+      console.log("SOY WEBHOOKS");
+      console.log(response);
       res.status(response.status).json({
         status: response.body.status,
         status_detail: response.body.status_detail,
