@@ -18,7 +18,7 @@ router.post('/process_payment', function(req, res, next) {
     const { status, status_detail, id } = response.body;
     console.log("SOY PROCES_PAYMENT");
     console.log(response);
-    almacena(response.body)
+    almacena(response)
         .then()
         .catch()
         .finally(()=>{
@@ -33,7 +33,8 @@ router.post('/process_payment', function(req, res, next) {
 
 
 router.post('/webhooks', function(req, res, next){
-  console.log(req.body);
+  console.log("TODO REQ WEBHOOK");
+  console.log(req);
   var payment_data = {
     transaction_amount: Number(req.body.transactionAmount),
     token: req.body.token,
@@ -41,7 +42,7 @@ router.post('/webhooks', function(req, res, next){
     installments: Number(req.body.installments),
     payment_method_id: req.body.paymentMethodId,
     issuer_id: req.body.issuer,
-    notification_url: "https://cerrapp.herokuapp.com/webhooks",
+    /* notification_url: "https://cerrapp.herokuapp.com/webhooks", */
     payer: {
       email: req.body.email,
       identification: {
