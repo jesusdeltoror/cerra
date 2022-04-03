@@ -33,6 +33,7 @@ router.post('/process_payment', function(req, res, next) {
 
 
 router.post('/webhooks', function(req, res, next){
+  console.log(req.body);
   var payment_data = {
     transaction_amount: Number(req.body.transactionAmount),
     token: req.body.token,
