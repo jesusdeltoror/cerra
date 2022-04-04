@@ -76,6 +76,7 @@ router.post('/webhooks', function(req, res, next){
     .catch(function(error) {
       res.status(400).send(error);
     }); */
+    
 
     mercadopago.payment.findById(req.body.id)
     .then(function(response) { 
