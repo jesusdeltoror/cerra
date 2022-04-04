@@ -76,6 +76,8 @@ router.post('/webhooks', function(req, res, next){
     }); */
     console.log("Antes del FIND");
     console.log(req.params.data.id);
+    console.log("REQ");
+    console.log(req);
     mercadopago.payment.findById(req.params.data.id)
     .then(function(response) { 
       console.log(response);
