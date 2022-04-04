@@ -44,26 +44,24 @@ router.post('/process_payment', function(req, res, next) {
 
 
 router.post('/webhooks', function(req, res, next){
-  console.log("REQ WEBHOOk");
-  console.log(req);
-  var payment_data = {
+  
+  /* var payment_data = {
     transaction_amount: Number(req.body.transactionAmount),
     token: req.body.token,
     description: req.body.description,
     installments: Number(req.body.installments),
     payment_method_id: req.body.paymentMethodId,
     issuer_id: req.body.issuer,
-    /* notification_url: "https://cerrapp.herokuapp.com/webhooks", */
+    notification_url: "https://cerrapp.herokuapp.com/webhooks",
     payer: {
       email: req.body.email,
       identification: {
         number: req.body.docNumber
       }
     }
-  };
+  }; */
 
-  console.log("TODO WEBHOOK");
-  console.log(payment_data);
+
   
 /*   mercadopago.payment.save(payment_data)
     .then(function(response) { 
@@ -76,10 +74,11 @@ router.post('/webhooks', function(req, res, next){
     .catch(function(error) {
       res.status(400).send(error);
     }); */
-    
+
 
     mercadopago.payment.findById(req.body.id)
     .then(function(response) { 
+      console.log(response);
       res.status(response.status).json({
         status: response.body.status,
         status_detail: response.body.status_detail,
