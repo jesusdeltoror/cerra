@@ -1,12 +1,21 @@
-<form id="form-checkout" >
-    <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
-    <input type="text" name="cardExpirationDate" id="form-checkout__cardExpirationDate" />
-    <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
-    <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
-    <input type="text" name="securityCode" id="form-checkout__securityCode" />
-    <select name="issuer" id="form-checkout__issuer"></select>
-    <input type="text" name="identificationNumber" id="form-checkout__identificationNumber"/>
-    <select name="installments" id="form-checkout__installments"></select>
+<form id="form-checkout" method="POST" action="/process_payment">
+    <input type="text" id="form-checkout__cardNumber" placeholder="Numero de tarjeta" />
+    <input type="text" id="form-checkout__cardExpirationMonth" placeholder="Mes de vencimiento (MM)" />
+    <input type="text" id="form-checkout__cardExpirationYear" placeholder="Año de vencimiento (YY o YYYY)" />
+    <input type="text" name="cardholderName" id="form-checkout__cardholderName" placeholder="Titular de la tarjeta" />
+    <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail" placeholder="E-mail" />
+    <input type="text" id="form-checkout__securityCode" placeholder="Código de seguridad" />
+    <select name="issuer" id="form-checkout__issuer">
+        <option value="" disabled selected>Seleccione el emisor</option>
+    </select>
+    <input type="text" name="identificationNumber" id="form-checkout__identificationNumber"
+        placeholder="Número de documento" />
+    <select name="installments" id="form-checkout__installments">
+        <option value="" disabled selected>Elige la cantidad de cuotas</option>
+    </select>
+    <input id="token" name="token" type="hidden" />
+    <input id="paymentMethodId" name="paymentMethodId" type="hidden" />
+    <input id="transactionAmount" name="transactionAmount" type="hidden" value="100" />
+    <input id="description" name="description" type="hidden" value="product description" />
     <button type="submit" id="form-checkout__submit">Pagar</button>
-    <progress value="0" class="progress-bar">Cargando...</progress>
- </form>
+</form>

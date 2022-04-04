@@ -12,23 +12,34 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/process_payment', function(req, res, next) {
+  var payment_data = {
+    transaction_amount: Number(req.body.transactionAmount),
+    token: req.body.token,
+    description: req.body.description,
+    installments: Number(req.body.installments),
+    payment_method_id: req.body.paymentMethodId,
+    issuer_id: req.body.issuer,
+    payer: {
+      email: req.body.email,
+      identification: {
+        number: req.body.identificationNumber
+      }
+    }
+  };
   
-  mercadopago.payment.save(req.body)
-  .then(function(response) {
-    const { status, status_detail, id } = response.body;
-    console.log("SOY PROCES_PAYMENT");
-    console.log(response);
-    almacena(response)
-        .then()
-        .catch()
-        .finally(()=>{
-          client.close()
-        })
-    res.status(response.status).json({ status, status_detail, id });
-  })
-  .catch(function(error) {
-    console.error(error);
-  });
+  console.log("PAYMENT_DATA");
+  console.log(payment_data);
+  mercadopago.payment.save(payment_data)
+    .then(function(response) {
+      res.status(response.status).json({
+        status: response.body.status,
+        status_detail: response.body.status_detail,
+        id: response.body.id
+      });
+    })
+    .catch(function(error) {
+      console.error(error)
+    });
 });
 
 
@@ -51,12 +62,6 @@ router.post('/webhooks', function(req, res, next){
     }
   };
   
-  almacena(payment_data)
-        .then()
-        .catch()
-        .finally(()=>{
-          client.close()
-        })
   mercadopago.payment.save(payment_data)
     .then(function(response) { 
       console.log("SOY WEBHOOKS");
@@ -72,11 +77,5 @@ router.post('/webhooks', function(req, res, next){
     });
 });
 
-
-async function almacena(dato){
-  await client.connect();
-  const db = client.db(dbName).collection("respuesta");
-  await db.insertOne(dato);
-}
 
 module.exports = router;
