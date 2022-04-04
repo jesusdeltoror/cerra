@@ -33,9 +33,10 @@ cardNumberElement.addEventListener('keyup', async () => {
 
       // If 'issuer_id' is needed, we fetch all issuers (getIssuers()) from bin.
       // Otherwise we just create an option with the unique issuer and call getInstallments().
-      additional_info_needed.includes('issuer_id') ? getIssuers() : (() => {
+      additional_info_needed.includes('issure_id') ? getIssuers() : (() => {
         const issuerElement = document.getElementById('form-checkout__issuer');
-        createSelectOptions(issuerElement, [issuer]);
+console.log(issuer);
+        createSelectOptions(issuerElement,[issuer]);
 
         getInstallments();
       })()
@@ -109,3 +110,42 @@ const createCardToken = async (event) => {
     console.error('error creating card token: ', e)
   }
 }
+
+
+
+
+// Step #getIdentificationTypes
+
+// Helper function to append option elements to a select input
+function createSelectOptions(elem, options, labelsAndKeys = { label : "name", value : "id"}){
+  const {label, value} = labelsAndKeys;
+
+  elem.options.length = 0;
+
+  const tempOptions = document.createDocumentFragment();
+
+  options.forEach( option => {
+      const optValue = option[value];
+      const optLabel = option[label];
+
+      const opt = document.createElement('option');
+      opt.value = optValue;
+      opt.textContent = optLabel;
+
+      tempOptions.appendChild(opt);
+  });
+
+  elem.appendChild(tempOptions);
+}
+
+// Get Identification Types
+(async function getIdentificationTypes () {
+  try {
+      const identificationTypes = await mp.getIdentificationTypes();
+      const docTypeElement = document.getElementById('docType');
+
+      createSelectOptions(docTypeElement, identificationTypes)
+  }catch(e) {
+      return console.error('Error getting identificationTypes: ', e);
+  }
+})()

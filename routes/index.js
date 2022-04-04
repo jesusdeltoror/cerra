@@ -20,7 +20,7 @@ router.post('/process_payment', function(req, res, next) {
     payment_method_id: req.body.paymentMethodId,
     issuer_id: req.body.issuer,
     payer: {
-      email: req.body.email,
+      email: req.body.cardholderEmail,
       identification: {
         number: req.body.identificationNumber
       }
