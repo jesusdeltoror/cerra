@@ -74,10 +74,10 @@ router.post('/webhooks', function(req, res, next){
     .catch(function(error) {
       res.status(400).send(error);
     }); */
-    console.log("Antes del FIND");
-    console.log(req.params.data.id);
     console.log("REQ");
     console.log(req);
+/*     console.log("Antes del FIND");
+    console.log(req.params.data.id); */
     mercadopago.payment.findById(req.params.data.id)
     .then(function(response) { 
       console.log("si entro al then");
