@@ -80,6 +80,7 @@ router.post('/webhooks', function(req, res, next){
     console.log(req);
     mercadopago.payment.findById(req.params.data.id)
     .then(function(response) { 
+      console.log("si entro al then");
       console.log(response);
       res.status(response.status).json({
         status: response.body.status,
