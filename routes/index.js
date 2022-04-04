@@ -44,6 +44,7 @@ router.post('/process_payment', function(req, res, next) {
 
 
 router.post('/webhooks', function(req, res, next){
+  console.log("REQ WEBHOOk");
   console.log(req);
   var payment_data = {
     transaction_amount: Number(req.body.transactionAmount),
@@ -64,7 +65,7 @@ router.post('/webhooks', function(req, res, next){
   console.log("TODO WEBHOOK");
   console.log(payment_data);
   
-  mercadopago.payment.save(payment_data)
+/*   mercadopago.payment.save(payment_data)
     .then(function(response) { 
       res.status(response.status).json({
         status: response.body.status,
@@ -74,7 +75,19 @@ router.post('/webhooks', function(req, res, next){
     })
     .catch(function(error) {
       res.status(400).send(error);
-    });
+    }); */
+
+    mercadopago.payment.findById(req.body.id)
+    .then(function(response) { 
+      res.status(response.status).json({
+        status: response.body.status,
+        status_detail: response.body.status_detail,
+        id: response.body.id
+      });
+    })
+      .catch(function(error) {
+        res.status(400).send(error);
+      });
 });
 
 
