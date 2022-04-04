@@ -44,6 +44,7 @@ router.post('/process_payment', function(req, res, next) {
 
 
 router.post('/webhooks', function(req, res, next){
+  console.log(req);
   var payment_data = {
     transaction_amount: Number(req.body.transactionAmount),
     token: req.body.token,
@@ -65,8 +66,6 @@ router.post('/webhooks', function(req, res, next){
   
   mercadopago.payment.save(payment_data)
     .then(function(response) { 
-      console.log("SOY WEBHOOKS");
-      console.log(response);
       res.status(response.status).json({
         status: response.body.status,
         status_detail: response.body.status_detail,
